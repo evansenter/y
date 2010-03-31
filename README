@@ -1,13 +1,32 @@
 Y
 =
 
-Introduction goes here.
+This plugin allows one to create anonymous recursive functions in Ruby by using the Y combinator, in the spirit of Enumerable#inject.
 
 
 Example
 =======
 
-Example goes here.
+Without the Y combinator:
+
+>> (factorial = lambda { |n| n.zero? ? 1 : n * factorial[n - 1] })[5]
+=> 120
+
+With the Y combinator:
+
+>> Y(5) { |factorial, n| n.zero? ? 1 : n * factorial[n - 1] }
+=> 120
+
+*Look ma, no local variables!*
+
+Alternatively, you can:
+
+>> y_factorial = Y { |factorial, n| n.zero? ? 1 : n * factorial[n - 1] }
+=> #<Proc>
+>> y_factorial[3]
+=> 6
+>> y_factorial[2]
+=> 2
 
 
 Copyright (c) 2010 [name of plugin creator], released under the MIT license
